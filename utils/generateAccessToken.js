@@ -10,22 +10,36 @@ const {
 } = process.env;
 
 const generateAccessToken = email =>
-  jwt.sign({ email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRY });
+  jwt.sign({ email }, ACCESS_TOKEN_SECRET, {
+    expiresIn: parseInt(ACCESS_TOKEN_EXPIRY),
+  });
 
 const generateRefreshToken = email =>
   jwt.sign({ email }, REFRESH_TOKEN_SECRET, {
-    expiresIn: REFRESH_TOKEN_EXPIRY,
+    expiresIn: parseInt(REFRESH_TOKEN_EXPIRY),
   });
 
-const authenticateToken = token =>
+const authenticateAccessToken = token =>
   jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
-    console.log(err);
-    if (err) return false;
+    if (err) {
+      console.log(err);
+      return false;
+    }
+    return user;
+  });
+
+const authenticateRefreshToken = token =>
+  jwt.verify(token, REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      console.log(err);
+      return false;
+    }
     return user;
   });
 
 module.exports = {
   generateAccessToken,
   generateRefreshToken,
-  authenticateToken,
+  authenticateAccessToken,
+  authenticateRefreshToken,
 };
