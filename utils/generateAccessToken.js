@@ -1,28 +1,31 @@
 const jwt = require("jsonwebtoken");
-const responseTemplates = require("./responseTemplates");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const {
+  ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRY,
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_EXPIRY,
+} = process.env;
 
 const generateAccessToken = email =>
-  jwt.sign(email, process.env.JWT_SECRET, { expiresIn: 1800 });
+  jwt.sign({ email }, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRY });
 
-const authenticateToken = (req, res, next) => {
-  const token = req.headers["access-token"];
-
-  if (!token)
-    return responseTemplates.unAuthorizedTemplate(res, "Missing auth headers!");
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    console.log(err);
-
-    if (err)
-      return responseTemplates.unAuthorizedTemplate(
-        res,
-        "Authentication failed, contact admin."
-      );
-
-    req.user = user;
-
-    next();
+const generateRefreshToken = email =>
+  jwt.sign({ email }, REFRESH_TOKEN_SECRET, {
+    expiresIn: REFRESH_TOKEN_EXPIRY,
   });
-};
 
-module.exports = { generateAccessToken, authenticateToken };
+const authenticateToken = token =>
+  jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
+    console.log(err);
+    if (err) return false;
+    return user;
+  });
+
+module.exports = {
+  generateAccessToken,
+  generateRefreshToken,
+  authenticateToken,
+};

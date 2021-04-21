@@ -3,13 +3,12 @@ const axios = require("axios");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const CLIENT_ID = process.env.OAUTH_CLIENT_ID;
-const CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET;
+const { OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, BASE_URL } = process.env;
 
 const oauth2Client = new google.auth.OAuth2(
-  CLIENT_ID,
-  CLIENT_SECRET,
-  "http://localhost:3030/auth/google/redirect"
+  OAUTH_CLIENT_ID,
+  OAUTH_CLIENT_SECRET,
+  `${BASE_URL}/auth/google/redirect`
 );
 
 const getGoogleAuthURL = () => {
@@ -38,7 +37,7 @@ const getGoogleUser = async code => {
         },
       }
     )
-    .then(res => res.data)
+    .then(({ data }) => data)
     .catch(err => {
       console.log(err);
       throw new Error(err.message);
