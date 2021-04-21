@@ -3,11 +3,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const morgan = require("morgan");
+const auth = require("./routes/auth");
 
 dotenv.config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+// app.use(morgan("combined"));
 
 // allow cors requests
 app.use(
@@ -16,6 +19,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use("/auth", auth);
 
 const port = process.env.PORT || 5000;
 
