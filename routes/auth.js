@@ -11,6 +11,6 @@ router.get(
   async (req, res) => await authenticateUser(req, res)
 );
 
-router.post("/refresh", async (req, res) => refreshTokens(req, res));
+router.post("/refresh", async (req, res) => await refreshTokens(req, res));
 
 module.exports = router;

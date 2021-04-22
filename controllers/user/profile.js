@@ -7,11 +7,11 @@ const {
 
 const profile = async (req, res) => {
   try {
-    const { email } = req.user;
+    const { id } = req.user;
 
-    if (!email) return serverErrorTemplate(res, "Failed to get user data.");
+    if (!id) return serverErrorTemplate(res, "Failed to get user data.");
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { id, removed: false } });
 
     if (!user) return notFoundTemplate(res, "User not found.");
 

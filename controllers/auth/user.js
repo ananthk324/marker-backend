@@ -21,7 +21,9 @@ const authenticateUser = async (req, res) => {
 
     console.log(user);
 
-    const __user = await User.findOne({ where: { email: user.email } });
+    const __user = await User.findOne({
+      where: { email: user.email, removed: false },
+    });
 
     if (!__user)
       return res.redirect(`${CLIENT_BASE_URL}#${randomString}&errcode=401`);
@@ -29,11 +31,13 @@ const authenticateUser = async (req, res) => {
     const accessToken = generateAccessToken({
       email: __user.email,
       is_manager: __user.is_manager ? true : false,
+      id: __user.id,
     });
 
     const refreshToken = generateRefreshToken({
       email: __user.email,
       is_manager: __user.is_manager ? true : false,
+      id: __user.id,
     });
 
     return res.redirect(
