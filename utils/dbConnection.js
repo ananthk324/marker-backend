@@ -1,23 +1,7 @@
 const { Sequelize } = require("sequelize");
-const dotenv = require("dotenv");
-dotenv.config();
+const config = require("../config/config");
 
-const { DB_NAME, DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD } = process.env;
-
-const sequelize = new Sequelize({
-  dialect: "postgres",
-  host: DB_HOST,
-  port: DB_PORT,
-  database: DB_NAME,
-  username: DB_USERNAME,
-  password: DB_PASSWORD,
-  dialectOptions: {
-    ssl: { rejectUnauthorized: false },
-  },
-  define: {
-    freezeTableName: true,
-  },
-});
+const sequelize = new Sequelize(config.dev);
 
 (async () => {
   try {

@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./server.js"
+    "start": "nodemon ./server.js",
+    "create-migrate": "npx sequelize migration:generate --name",
+    "migrate-dev-up": "npx sequelize db:migrate --env dev",
+    "migrate-dev-down": "npx sequelize db:migrate:undo:all --env dev"
   },
   "keywords": [],
   "author": "",
