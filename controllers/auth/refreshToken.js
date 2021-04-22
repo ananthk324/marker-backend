@@ -29,7 +29,7 @@ const refreshTokens = async (req, res) => {
 
     // Check if user exists in DB
     const isUserValid = await User.findOne({
-      where: { email: refreshTokenUser.email, removed: false },
+      where: { id: refreshTokenUser.id, removed: false },
     });
 
     if (!isUserValid) return unAuthorizedTemplate(res, "User not recognized.");
