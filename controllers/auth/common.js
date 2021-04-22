@@ -3,7 +3,7 @@ const {
   generateRefreshToken,
   authenticateRefreshToken,
   authenticateAccessToken,
-} = require("../../utils/generateAccessToken");
+} = require("../../utils/jwt");
 const {
   unAuthorizedTemplate,
   dataTemplate,

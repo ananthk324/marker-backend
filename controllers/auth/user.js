@@ -1,7 +1,7 @@
 const {
   generateAccessToken,
   generateRefreshToken,
-} = require("../../utils/generateAccessToken");
+} = require("../../utils/jwt");
 const { getGoogleUser } = require("../../utils/oauth");
 const { CLIENT_BASE_URL } = process.env;
 const { User } = require("../../models");

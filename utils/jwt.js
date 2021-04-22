@@ -22,7 +22,7 @@ const generateRefreshToken = userData =>
 const authenticateAccessToken = token =>
   jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
-      console.log(err);
+      console.log(err.message);
       return false;
     }
     return user;
@@ -31,7 +31,7 @@ const authenticateAccessToken = token =>
 const authenticateRefreshToken = token =>
   jwt.verify(token, REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) {
-      console.log(err);
+      console.log(err.message);
       return false;
     }
     return user;

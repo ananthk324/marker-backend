@@ -10,9 +10,7 @@ const createUser = async (req, res) => {
     const user = req.user;
     const newUser = req.body;
 
-    if (!user) return badRequestTemplate(res, "User not available.");
-
-    if (!user.is_manager)
+    if (user && !user.is_manager)
       return badRequestTemplate(res, "User has no admin privileges.");
 
     if (!newUser) return badRequestTemplate(res, "No new user data in req.");
