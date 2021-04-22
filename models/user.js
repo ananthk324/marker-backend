@@ -23,10 +23,12 @@ const User = sequelize.define(
     },
   },
   {
-    indexes: {
-      unique: true,
-      fields: ["email"],
-    },
+    indexes: [
+      {
+        unique: true,
+        fields: ["email"],
+      },
+    ],
   }
 );
 
