@@ -9,13 +9,13 @@ const {
   REFRESH_TOKEN_EXPIRY,
 } = process.env;
 
-const generateAccessToken = email =>
-  jwt.sign({ email }, ACCESS_TOKEN_SECRET, {
+const generateAccessToken = userData =>
+  jwt.sign(userData, ACCESS_TOKEN_SECRET, {
     expiresIn: parseInt(ACCESS_TOKEN_EXPIRY),
   });
 
-const generateRefreshToken = email =>
-  jwt.sign({ email }, REFRESH_TOKEN_SECRET, {
+const generateRefreshToken = userData =>
+  jwt.sign(userData, REFRESH_TOKEN_SECRET, {
     expiresIn: parseInt(REFRESH_TOKEN_EXPIRY),
   });
 

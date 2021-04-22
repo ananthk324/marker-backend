@@ -4,9 +4,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const sequelize = require("./utils/dbConnection");
+
 const auth = require("./routes/auth");
 const user = require("./routes/user");
-const sequelize = require("./utils/dbConnection");
+const admin = require("./routes/admin");
 
 dotenv.config();
 
@@ -24,6 +26,7 @@ app.use(
 
 app.use("/auth", auth);
 app.use("/user", user);
+app.use("/admin", admin);
 
 const port = process.env.PORT || 5000;
 

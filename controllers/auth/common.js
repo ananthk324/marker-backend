@@ -22,8 +22,14 @@ const refreshTokens = (req, res) => {
 
   console.log(refreshTokenUser);
 
-  const access_token = generateAccessToken(refreshTokenUser.email);
-  const refresh_token = generateRefreshToken(refreshTokenUser.email);
+  const access_token = generateAccessToken({
+    email: refreshTokenUser.email,
+    is_manager: refreshTokenUser.is_manager,
+  });
+  const refresh_token = generateRefreshToken({
+    email: refreshTokenUser.email,
+    is_manager: refreshTokenUser.is_manager,
+  });
 
   return dataTemplate(res, { access_token, refresh_token });
 };
