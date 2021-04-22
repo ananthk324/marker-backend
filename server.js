@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const auth = require("./routes/auth");
 const user = require("./routes/user");
+const sequelize = require("./utils/dbConnection");
 
 dotenv.config();
 
