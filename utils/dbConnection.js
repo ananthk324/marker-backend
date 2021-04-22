@@ -14,6 +14,9 @@ const sequelize = new Sequelize({
   dialectOptions: {
     ssl: { rejectUnauthorized: false },
   },
+  define: {
+    freezeTableName: true,
+  },
 });
 
 (async () => {
